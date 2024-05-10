@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+    <body>
+        <form onsubmit="handleAddExpanse(event)">
+
+            <label for="category">Choose Category: </label>
+            <select id="category" name="category" required>
+                <option value="">None</option>
+                <option value="vehicle">Vehicle</option>
+                <option value="rent">Rent</option>
+                <option value="food">Food</option>
+                <option value="fuel">Fuel</option>
+                <option value="emi">EMI</option>
+            </select>
+            <label for="amount">Enter Amount</label>
+            <input id="amount" name="amount" type="number" required/>
+            <label for="description">Description</label>
+            <input id="description" name="description" type="text" required/>
+            
+            <button id="btn">Add</button>
+        </form>
+        
+        <div id ='premium'>
+            <button id="rzrbtn">Buy Premium</button>
+        </div>
+        <ul>
+            
+        </ul>
+
+        <div id="leaderboard">
+            
+        </div>
+        
+    </body>
+    <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.6.8/axios.min.js"></script>
+    <script src="/scripting/expanse.js"> </script>
+
+</html>
