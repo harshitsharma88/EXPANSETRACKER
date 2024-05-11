@@ -20,7 +20,7 @@ exports.forgotPassword=async(req,res,next)=>{
         }
 
         const id=uuid();
-        console.log(id);
+        
 
         const client = sib.ApiClient.instance;
         const apiKey = client.authentications["api-key"];
@@ -56,7 +56,7 @@ exports.forgotPassword=async(req,res,next)=>{
             userId:user.id
         })
 
-        console.log("//////////////////////");
+        
 
 
         return res.status(200).json('Email Sent')
