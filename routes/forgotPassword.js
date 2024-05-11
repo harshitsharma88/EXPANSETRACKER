@@ -6,6 +6,6 @@ router.post('/forgotpassword',passwordController.forgotPassword);
 
 router.post('/updatepassword',passwordController.updatePassword);
 
-router.get('/setnewpassword/:id',passwordController.setNewPassword)
+router.get('/setnewpassword/:rqstid',passwordController.setNewPassword)
 
 module.exports=router;

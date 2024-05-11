@@ -17,7 +17,7 @@ async function updatepassword(e){
      
      await axios.post('http://localhost:4000/password/updatepassword',obj);
       
-     document.querySelector('body').innerHTML='<h1>Password Reset Successfully</h1><br><p>Please Login again to your account</p>'
+     document.querySelector('body').innerHTML='<h1>Password Reset Succesfully</h1>';
 
     
 

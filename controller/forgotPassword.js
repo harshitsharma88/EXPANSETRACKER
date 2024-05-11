@@ -82,7 +82,7 @@ exports.setNewPassword=async (req,res,next)=>{
          }
 
          if(!resetlink.isactive){
-            return res.status(200).json('<h1>Link Expired</h1>')
+            return res.status(200).send('<h1>Link Expired</h1>')
          }
          await resetlink.update({isactive:false})
 
@@ -112,11 +112,12 @@ exports.updatePassword=async(req,res,next)=>{
         },
         {where:{id:resetlink.userId}});
 
-        res.data(200).json({message:'Password Set Successfully'})
+        res.status(200).json({message:'Password Set Successfully'})
 
 
         
     } catch (error) {
+        console.log(error);
 
         res.status(500).json({message:'Error Occurred'})
         
