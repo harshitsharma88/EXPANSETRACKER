@@ -1,3 +1,4 @@
+
 async function signUp(event){
     event.preventDefault();
     const obj= {
@@ -36,4 +37,25 @@ async function login(event){
 
     })
     .catch(err=>alert(err))
+}
+
+document.querySelector('#forgotbtn').addEventListener('click',forgotPassword);
+
+async function forgotPassword(){
+    const email= document.querySelector('#login').email.value;
+    if(!email){
+    alert('Please Enter your e-mail')
+    }else{
+        try {
+
+            console.log("HEy");
+            const response = await axios.post('http://localhost:4000/password/forgotpassword',{email});
+            console.log(response);
+            alert('EMAIL SENT')
+            
+        } catch (error) {
+            alert(error)
+            
+        }
+    }
 }
