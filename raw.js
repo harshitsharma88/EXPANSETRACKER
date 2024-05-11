@@ -1,16 +1,6 @@
 const user = require('./model/usercredentials');
 const expanse=require('./model/expanse');
+const {v4:uuid}=require('uuid');
 
-async function userCreate(){
-    try {
-        const usr=  await user.findOne({where:{email:'harshit7174@gil.com'}});
-        console.log(usr);
+console.log(uuid());
 
-        
-    } catch (error) {
-        console.log(error);
-        
-    }
-}
-
-userCreate()
