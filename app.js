@@ -36,6 +36,7 @@ const Expanse=require('./model/expanse');
 const User=require('./model/usercredentials');
 const Order=require('./model/orders');
 const Password=require('./model/password');
+const Reports=require('./model/reports');
 
 
 Expanse.belongsTo(User);
@@ -46,6 +47,9 @@ Order.belongsTo(User);
 
 Password.belongsTo(User);
 User.hasMany(Password);
+
+User.hasMany(Reports);
+Reports.belongsTo(User);
 
 
 

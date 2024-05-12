@@ -1,6 +1,7 @@
 
 const ul = document.querySelector('ul');
 const token=localStorage.getItem('token');
+let ispremium =false;
 
 
 window.onload=getAll;
@@ -13,6 +14,7 @@ function getAll() {
     .then(result=>{
         console.log(result.data.premium);
         if(result.data.premium){
+            ispremium=true;
            premiumContent();
         }
         result.data.response.forEach(element => {
@@ -144,5 +146,29 @@ async function leaderboardreport(){
         console.log(error);
     }
     
+
+}
+
+document.querySelector('#reportbtn').addEventListener('click',downloadReport);
+
+
+async function downloadReport(){
+    // if(!ispremium){
+    //     alert('Buy Premium to access This Feature')
+    //     return;
+    // }
+    
+    try {
+        
+        const response = await axios.get('http://localhost:4000/premium/downloadreport',{headers:{Authorazation:token}});
+        console.log(response);
+        location.href=response.data.url;
+
+        
+    } catch (error) {
+        alert(error)
+        console.log(error);
+        
+    }
 
 }

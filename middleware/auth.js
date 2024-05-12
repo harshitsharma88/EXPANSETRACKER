@@ -2,6 +2,8 @@ const jwt=require('jsonwebtoken');
 const User=require('../model/usercredentials');
 
 async function authenticate(req,res,next){
+    console.log('/////////////////////////////////');
+    console.log('IN AUTH');
     
     try{
     const token=req.header("Authorazation");
@@ -19,6 +21,9 @@ async function authenticate(req,res,next){
     }
     req.user=user;
     next();
+    console.log('OUT AUTH');
+    console.log('///////////////////////////////');
+    
    
 
 }catch(err){
