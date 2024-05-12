@@ -23,11 +23,9 @@ exports.downloadReport=async(req,res,next)=>{
         const entries = await user.getExpanses();
         const date=JSON.stringify(Date())
         const filename= `${user.name}${user.id}-${date}.txt`;
-        let data='';
-        entries.forEach((element,index)=> {
-            const updated= JSON.stringify(element.updatedAt).replace('T','  ')
-             data+=`${index+1} ${element.category} ${element.description} ${element.amount} ${updated}\n`;   
-            });
+
+        let data= makeFile(entries);
+        
         const {Location}= await s3AWS.uploadtoAWS(filename,data);
         await reports.create({url:Location,userId:user.id},{transaction:trn});
         trn.commit();
@@ -40,6 +38,14 @@ exports.downloadReport=async(req,res,next)=>{
         await trn.rollback();
         res.status(500).json("Error Occurred");
     }
+}
 
+function makeFile(entries){
+    let data='';
+    entries.forEach((element,index)=> {
+        const updated= JSON.stringify(element.updatedAt).replace('T','  ')
+         data+=`${index+1} ${element.category} ${element.description} ${element.amount} ${updated}\n`;   
+        });
 
+    return data;
 }
