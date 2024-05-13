@@ -91,7 +91,8 @@ document.querySelector('#rzrbtn').onclick=async (e)=>{
 
                 },{headers:{Authorazation:token}});
                 console.log(res.data.message);
-                localStorage.setItem('token',res.data.token)
+                localStorage.setItem('token',res.data.token);
+                ispremium=true
             
                 alert("You are a Premium User Now");
 
