@@ -2,9 +2,8 @@ const user = require('./model/usercredentials');
 const expanse=require('./model/expanse');
 const {v4:uuid}=require('uuid');
 const sequelize= require('./util/database');
-const har = JSON.stringify(new getHours())
 
-console.log(har);
+
 
 // let arr;
 
@@ -28,5 +27,14 @@ console.log(har);
 //     console.log(`${index+1} ${element.category} ${element.description} ${element.amount} ${updated}`);   
 //    });
 // }
+
+
+
+const arr =[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15];
+
+const arr1= arr.slice(3,);
+
+console.log(arr1);
+
 
 

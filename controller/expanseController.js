@@ -9,13 +9,29 @@ exports.getHomePage=(req,res,next)=>{
 }
 
 exports.getExpanse=async (req,res,next)=>{
+    const {user}=req;
+    let{itemsperpage,currentpage}=req.params;
+    console.log(req.params);
     
     try {
-        const response = await expanse.findAll({where:{userId:req.user.id}});
+        let response = await expanse.findAll({where:{userId:user.id}});
+
+            itemsperpage= parseInt(itemsperpage);
+            currentpage=parseInt(currentpage)
+            
+            const totalpages= Math.ceil(response.length/itemsperpage);
+    
+            const from = itemsperpage*(currentpage-1);
+    
+            const to = currentpage*itemsperpage-1;
+    
+            response=response.slice(from,to+1);
+            
         
-        res.status(200).json({response,premium:req.user.ispremiumuser})
-    } catch (error) {
-        res.status(404).json("Not Found")
+        res.status(200).json({response,premium:user.ispremiumuser,totalpages})
+    } 
+    catch (error) {
+        res.status(500).json("Server Error")
     }
 }
 

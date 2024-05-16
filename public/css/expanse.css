@@ -1,0 +1,166 @@
+body{
+    background-color:azure;
+  }
+
+  form {
+    border-radius: 5px;
+    background-color:rgb(52, 140, 140);
+    padding: 20px;
+    margin-bottom: 10px;;
+  }
+
+ #btn {
+    padding: 5px 8px;
+    border: none;
+    background-color: #0056b3;
+    border-radius: 20px  ;
+    color: white;
+    cursor: pointer;
+  }
+  
+  #btn:hover {
+    background-color: cornflowerblue;
+  }
+
+  .report-prem-btn{
+    display: flex;
+    flex-direction:row; 
+    align-items: center;
+    padding: 0%;
+    justify-content: center;
+    align-items: center;
+    gap:5px;
+  }
+
+  #rzrbtn{
+    background-color:sandybrown;
+    border: none;
+    border-radius: 5px;
+    padding:6px 6px;
+  }
+
+  #rzrbtn:hover{
+    background-color: gold;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.783);
+  }
+
+  #reportbtn{
+    background-color:springgreen;
+    border: none;
+    border-radius: 5px;
+    padding:6px 6px;
+  }
+
+  #reportbtn:hover{
+    background-color:greenyellow;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.783);
+  }
+
+  .delexpnse{
+    padding: 5px 8px;
+    border: none;
+    background-color:orange;
+    border-radius: 20px  ;
+    color: white;
+    cursor: pointer;
+
+  }
+
+  .delexpnse:hover{
+    background-color: orangered;
+  }
+
+  #premium{
+    color:goldenrod;
+  }
+
+  #showleaderboard{
+    background-color:darkgrey;
+    border: none;
+    border-radius: 5px;
+    padding:6px 6px;
+
+  }
+
+  #showleaderboard:hover{
+    background-color:darkslategrey;
+    color:white;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.783);
+  }
+
+  #expanse-table{
+    border:1px solid sandybrown;
+    padding: 0%;
+    margin-bottom: 15px;
+  }
+
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 20px 10px;
+    font-size: 18px;
+    text-align: left;
+    border-bottom: 1px solid black;
+    
+}
+tr{
+  justify-content: center;
+  border-bottom: 1px solid black;
+}
+table th, table td {
+  padding: 8px 8px; 
+}
+
+#page-btn{display: flex;
+    justify-content: center;
+    align-items: center;}
+
+#page-btn{
+      display: flex;
+      flex-direction:row; 
+      gap: 1px;
+  
+    }
+
+.navmove{
+  background-color:cadetblue;
+  border: none;
+}
+
+.navmove:hover{
+  background-color: steelblue;
+}
+
+.jumppage{
+  background-color:seagreen;
+  border: none;
+
+}
+
+.skip{
+  background-color:cornflowerblue;
+  border: none;
+}
+
+.skip:hover{
+  background-color: #0056b3;
+}
+
+#nav-btns{
+  gap: 2px;
+}
+
+#leaderboard{
+  border: 1px solid gold;
+  width: 40%;
+}
+
+.leadli{
+  border-bottom:1px solid black ;
+  margin: 5px;
+  background-color:rgb(236, 217, 193);
+}
+
+.leadname{
+  color: rgb(201, 87, 6);
+}

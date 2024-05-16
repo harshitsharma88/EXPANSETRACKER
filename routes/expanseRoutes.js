@@ -8,9 +8,9 @@ router.get('/',expanseController.getHomePage);
 
 router.post('/add-expanse',authenticate,expanseController.addExpanse);
 
-router.get('/get-expanse',authenticate,expanseController.getExpanse)
-
 router.delete('/delete-expanse',authenticate,expanseController.deleteExpanse);
+
+router.get('/get-expanse/:itemsperpage/:currentpage',authenticate,expanseController.getExpanse)
 
 
 

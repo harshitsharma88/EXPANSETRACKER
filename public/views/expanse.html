@@ -1,11 +1,17 @@
 <!DOCTYPE html>
 <html>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Homepage</title>
+        <link rel="stylesheet" href="/css/expanse.css">
+    </head>
     <body>
         <form onsubmit="handleAddExpanse(event)">
 
             <label for="category">Choose Category: </label>
             <select id="category" name="category" required>
-                <option value="">None</option>
+                <option value="">-----</option>
                 <option value="vehicle">Vehicle</option>
                 <option value="rent">Rent</option>
                 <option value="food">Food</option>
@@ -19,20 +25,44 @@
             
             <button id="btn">Add</button>
         </form>
-        
+        <div class="report-prem-btn">
         <div id ='premium'>
             <button id="rzrbtn">Buy Premium</button>
         </div>
         <div id ='report'>
             <button id="reportbtn">Donwload Report</button>
         </div>
-        <ul>
+    </div>
+        <label for="perpage">Items per Page: </label>
+            <select onchange="changeItems()" id="perpage" class="item-per-page" name="perpage">
+                <option value="2">2</option>
+                <option value="5">5</option>
+                <option value="10">10</option>
+            </select>
+        <div id="expanse-table">
             
-        </ul>
+            <table id="expanse-records">
+                <tr>
+                    <th>Category</th>
+                    <th>Amount</th>
+                    <th>Description</th>
+                </tr>
 
-        <div id="leaderboard">
+                
+            </table>
             
+            <div id="page-btn">
+                <button id="firstpage" class="jumppage">0</button>
+                <button id="previous" class="navmove">&lt;</button>
+                <div id="nav-btns"></div>
+                <button id="next" class="navmove">&gt;</button>
+                <button id="lastpage" class="jumppage">0</button>
+            </div>
+
         </div>
+            
+
+        <div id="leaderboard"></div>
         
     </body>
     <script src="https://checkout.razorpay.com/v1/checkout.js"></script>

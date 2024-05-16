@@ -22,6 +22,7 @@ exports.signUp=async (req,res,next)=>{
 
     }
     catch(err){
+        console.log(err);
         res.status(500).json("Not Created")
     }
 
@@ -34,10 +35,7 @@ const generateToken=(id,name,premium)=>{
 exports.logIn=async function(req,res,next){
 
     try{
-       await usercredentials.findOne({where:{
-            email:req.body.email
-        }})
-        .then(user=>{
+       const user= await usercredentials.findOne({where:{email:req.body.email}})
             if(user){
                 bcrypt.compare(req.body.password,user.password,(err,result)=>{
                     if(err){
@@ -59,7 +57,7 @@ exports.logIn=async function(req,res,next){
                 res.status(404).json("User Not Found");
             }
 
-        })
+        
     }
     catch(err){
         res.status(500).json("Something Went Wrong")
