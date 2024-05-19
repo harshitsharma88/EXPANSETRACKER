@@ -26,11 +26,11 @@ exports.downloadReport=async(req,res,next)=>{
 
         let data= makeFile(entries);
         
-        // const {Location}= await s3AWS.uploadtoAWS(filename,data);
-        // await reports.create({url:Location,userId:user.id},{transaction:trn});
+        const {Location}= await s3AWS.uploadtoAWS(filename,data);
+        await reports.create({url:Location,userId:user.id},{transaction:trn});
         trn.commit();
         
-        // return res.status(200).json({url:Location})
+        return res.status(200).json({url:Location})
         return res.status(200).json({data:data})
 
 

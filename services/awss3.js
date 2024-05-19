@@ -21,7 +21,9 @@ exports.uploadtoAWS=(filename,data)=>{
                 reject(error)
             }
             else{
+                
                 resolve(response);
+                
             }
         })
 

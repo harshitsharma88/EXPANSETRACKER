@@ -1,16 +1,22 @@
-const PORT=4000;
+const PORT=80;
 const express= require('express');
-const sequelize=require('./util/database');
 const cors=require('cors');
 const bodyparser=require('body-parser')
-const dotenv=require('dotenv');
+const dotenv=require('dotenv').config();
+const sequelize=require('./util/database');
+const helmet=require('helmet');
+const path= require('path');
+
 
 const app = express();
+
+
+// app.use(helmet());
 app.use(cors());
 app.use(bodyparser.urlencoded({extended:false}));
 app.use(bodyparser.json());
 app.use(express.text());
-dotenv.config();
+
 
 app.use(express.static('public'));
 
