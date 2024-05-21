@@ -8,7 +8,7 @@ async function signUp(event){
     }
     try {
 
-        const res=await axios.post('http://3.80.38.126:80/user/signup',obj)
+        const res=await axios.post('http://localhost:4000/user/signup',obj)
         console.log(res);
         event.target.name.value=""
         event.target.email.value=""
@@ -32,7 +32,7 @@ async function login(event){
         password:event.target.password.value
     }
     try {
-        const res= await axios.post('http://3.80.38.126:80/user/login',obj)
+        const res= await axios.post('http://localhost:4000/user/login',obj)
 
         console.log(res);
         localStorage.setItem("token",res.data.token);
@@ -60,7 +60,7 @@ async function forgotPassword(){
         try {
 
             console.log("HEy");
-            const response = await axios.post('http://3.80.38.126:80/password/forgotpassword',{email});
+            const response = await axios.post('http://localhost:4000/password/forgotpassword',{email});
             console.log(response);
             alert('EMAIL SENT')
             
