@@ -15,7 +15,7 @@ window.onload=getAll;
 
 document.querySelector('#logout').addEventListener('click',()=>{
     localStorage.removeItem('token');
-    location.replace('http://localhost:4000')
+    location.replace('http://18.232.150.169:80')
 })
 
 document.querySelector('#firstpage').addEventListener('click',()=>{
@@ -60,7 +60,7 @@ async function getAll() {
     try {
 
 
-        const result = await axios.get(`http://localhost:4000/expanse/get-expanse/${itemsperpage}/${currentpage}`,{headers:{Authorazation:token}})
+        const result = await axios.get(`http://18.232.150.169:80/expanse/get-expanse/${itemsperpage}/${currentpage}`,{headers:{Authorazation:token}})
         console.log(result.data.premium);
         console.log(currentpage);
         if(result.data.premium){
@@ -184,7 +184,7 @@ async function handleAddExpanse(event){
             description:event.target.description.value,
         }
 
-        const result= await axios.post('http://localhost:4000/expanse/add-expanse',expanseObj,{headers:{Authorazation:token}});
+        const result= await axios.post('http://18.232.150.169:80/expanse/add-expanse',expanseObj,{headers:{Authorazation:token}});
         event.target.category.value="None"
         event.target.amount.value=""
         event.target.description.value=""
@@ -217,7 +217,7 @@ function display(object){
 
     const result=await axios({
     method:'delete',
-    url:'http://localhost:4000/expanse/delete-expanse',
+    url:'http://18.232.150.169:80/expanse/delete-expanse',
     data:object,
     headers:{Authorazation:token}})
 
@@ -242,14 +242,14 @@ table.appendChild(tr);
 document.querySelector('#rzrbtn').onclick=async (e)=>{
 
     try {
-        const response = await axios.get('http://localhost:4000/purchase/premiummembership',{headers:{Authorazation:token}});
+        const response = await axios.get('http://18.232.150.169:80/purchase/premiummembership',{headers:{Authorazation:token}});
         const options={
             "key":response.data.key_id,
             "order_id":response.data.order.id,
             "handler":async (rzpresponse)=>{
                 premiumContent();
 
-                const res=await axios.post('http://localhost:4000/purchase/updatepremium',{
+                const res=await axios.post('http://18.232.150.169:80/purchase/updatepremium',{
                     orderid:options.order_id,
                     paymentid:rzpresponse.razorpay_payment_id
 
@@ -270,7 +270,7 @@ document.querySelector('#rzrbtn').onclick=async (e)=>{
     e.preventDefault();
     rzp.on('payment.failed',async(issue)=>{
         console.log(issue);
-        await axios.post('http://localhost:4000/purchase/failedpremium',{orderid:options.order_id,});
+        await axios.post('http://18.232.150.169:80/purchase/failedpremium',{orderid:options.order_id,});
     alert('Something Went Wrong')
     })
         
@@ -302,7 +302,7 @@ function premiumContent(){
 
 async function leaderboardreport(){
     try {
-        const response = await axios.get('http://localhost:4000/premium/showleaderboard');
+        const response = await axios.get('http://18.232.150.169:80/premium/showleaderboard');
         const leaderboard= document.querySelector('#leaderboard');
         let html="<h1>Leaderoard</h1>"
         response.data.forEach(ele=>{
@@ -330,7 +330,7 @@ async function downloadReport(){
     
     try {
         
-        const response = await axios.get('http://localhost:4000/premium/downloadreport',{headers:{Authorazation:token}});
+        const response = await axios.get('http://18.232.150.169:80/premium/downloadreport',{headers:{Authorazation:token}});
         
         location.href=response.data.url;
 

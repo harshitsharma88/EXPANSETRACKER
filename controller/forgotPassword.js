@@ -44,7 +44,7 @@ exports.forgotPassword=async(req,res,next)=>{
             subject:'Reset Password Link Expense Tracker Node',
             textContent:' Link Here ',
             htmlContent:`<h4>Dear ${user.name} </h4><br>
-            <a href="http://localhost:4000/password/setnewpassword/{{params.rqstid}}">Click here</a> to reset your password for Expanse Tracker App<br>`,
+            <a href="http://18.232.150.169:80/password/setnewpassword/{{params.rqstid}}">Click here</a> to reset your password for Expanse Tracker App<br>`,
             params:{
                 rqstid:id
             },
