@@ -61,8 +61,8 @@ async function getAll() {
 
 
         const result = await axios.get(`http://18.232.150.169:80/expanse/get-expanse/${itemsperpage}/${currentpage}`,{headers:{Authorazation:token}})
-        console.log(result.data.premium);
-        console.log(currentpage);
+        
+        
         if(result.data.premium){
             ispremium=true;
            premiumContent();
