@@ -10,8 +10,20 @@ body{
     margin-top: 1rem;
   }
 
+  @media screen and (width:95%) {
+
+    form{
+      margin: 1rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.3rem;
+    }
+    
+  }
+
   #perpagediv{
     float: right;
+    margin: 0.8rem;
   }
 
   #navbar{
@@ -34,7 +46,7 @@ body{
     align-items: center;
     position: fixed;
     overflow-x: hidden;
-    transition: 0.5s;
+    transition: 0.3s;
     background-color: #111;
     
   }
@@ -43,8 +55,6 @@ body{
     background:none;
     border: none;
     color: aliceblue;
-    /* height: 5rem;
-    width: 3rem; */
     margin-right: 3 rem;
     float: inline-start;
     padding: 0%;

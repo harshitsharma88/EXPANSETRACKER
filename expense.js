@@ -33,7 +33,7 @@ app.use('/password',passwordRoute);
 dbConn()
 .then(()=>{
     app.listen(PORT,()=>{
-        console.log(`Started on 4000`);
+        console.log(`Started on ${PORT}`);
     })
 })
 .catch((error)=>{

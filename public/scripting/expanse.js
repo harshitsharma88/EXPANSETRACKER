@@ -20,7 +20,7 @@ document.querySelector("#logoutbtn").addEventListener('click',(event)=>{
 })
 document.querySelector("#opensidebar").addEventListener('click',(event)=>{
     
-    sidebar.style.width = "13%";
+    sidebar.style.width = "23%";
 })
 
 document.querySelector("#closesidebar").addEventListener('click',(event)=>{
