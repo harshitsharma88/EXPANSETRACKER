@@ -1,10 +1,8 @@
-const users=require('../model/usercredentials');
+const Users=require('../model/usercredentials');
 const sib=require('sib-api-v3-sdk');
 const path=require('path');
 const {v4:uuid}=require('uuid');
-const passwordTable=require('../model/password');
-const userTable=require('../model/usercredentials');
-const sequelize= require('../util/database');
+const passwordLinks=require('../model/password');
 const bcrypt= require('bcrypt');
 
 
@@ -13,7 +11,7 @@ exports.forgotPassword=async(req,res,next)=>{
 
         const {email}= req.body;
 
-        const user = await users.findOne({where:{email:email}});
+        const user = await Users.findOne({email:email});
         
         if(!user){
             return res.status(404).json("User Doesn't Exist");
@@ -44,16 +42,16 @@ exports.forgotPassword=async(req,res,next)=>{
             subject:'Reset Password Link Expense Tracker Node',
             textContent:' Link Here ',
             htmlContent:`<h4>Dear ${user.name} </h4><br>
-            <a href="http://18.232.150.169:80/password/setnewpassword/{{params.rqstid}}">Click here</a> to reset your password for Expanse Tracker App<br>`,
+            <a href="http://54.144.79.95/password/setnewpassword/{{params.rqstid}}">Click here</a> to reset your password for Expanse Tracker App<br>`,
             params:{
                 rqstid:id
             },
         })
 
-        await passwordTable.create({
+        await passwordLinks.create({
             id:id,
-            isactive:true,
-            userId:user.id
+            isActive:true,
+            userId:user._id
         })
 
         
@@ -73,18 +71,16 @@ exports.forgotPassword=async(req,res,next)=>{
 
 exports.setNewPassword=async (req,res,next)=>{
     try {
-         const resetlink= await passwordTable.findOne({
-            where:{id:req.params.rqstid}
-         })
+         const resetlink= await passwordLinks.findOne({id:req.params.rqstid});
 
          if(!resetlink){
-            return res.status(404).json({message:"Link Doesn't Exist"})
+            return res.status(404).send("<h1>Link not Exists</h1>")
          }
 
-         if(!resetlink.isactive){
+         if(!resetlink.isActive){
             return res.status(200).send('<h1>Link Expired</h1>')
          }
-         await resetlink.update({isactive:false})
+         await passwordLinks.updateOne({id:req.params.rqstid},{isActive:false})
 
         return res.sendFile(path.resolve('public/views/forgotPassword.html'));
         
@@ -99,7 +95,7 @@ exports.updatePassword=async(req,res,next)=>{
 
     try {
 
-        const resetlink= await passwordTable.findOne({where:{id:rqstid}});
+        const resetlink= await passwordLinks.findOne({id:rqstid});
 
         if(!resetlink){
             return res.status(404).json('Link not found')
@@ -107,10 +103,7 @@ exports.updatePassword=async(req,res,next)=>{
 
         const hashed= await bcrypt.hash(password,10);
 
-        await userTable.update({
-            password:hashed
-        },
-        {where:{id:resetlink.userId}});
+        await Users.updateOne({_id:resetlink.userId},{password:hashed});
 
         res.status(200).json({message:'Password Set Successfully'})
 

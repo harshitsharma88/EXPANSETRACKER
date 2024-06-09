@@ -1,11 +1,19 @@
 const AWS = require('aws-sdk');
 
 exports.uploadtoAWS=(filename,data)=>{
+
+
+    console.log("IN AWSS3 UPLOAD");
     
     const s3= new AWS.S3({
     accessKeyId:process.env.AWS_ACCESS_KEY_ID,
     secretAccessKey:process.env.AWS_SECRET_KEY
     })
+
+
+    console.log("AFTER 1ST AWSS3 UPLOAD");
+
+    
 
     const dataToUpload={
         Bucket:process.env.AWS_BUCKET,
@@ -21,9 +29,7 @@ exports.uploadtoAWS=(filename,data)=>{
                 reject(error)
             }
             else{
-                
                 resolve(response);
-                
             }
         })
 

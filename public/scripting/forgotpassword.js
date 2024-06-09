@@ -15,7 +15,7 @@ async function updatepassword(e){
         rqstid:url
      }
      
-     await axios.post('http://18.232.150.169:80/password/updatepassword',obj);
+     await axios.post('http://54.144.79.95/password/updatepassword',obj);
       
      document.querySelector('body').innerHTML='<h1>Password Reset Succesfully</h1>';
 

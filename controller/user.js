@@ -35,7 +35,7 @@ const generateToken=(id,name,premium)=>{
 exports.logIn=async function(req,res,next){
 
     try{
-       const user= await usercredentials.findOne({where:{email:req.body.email}})
+       const user= await usercredentials.findOne({email:req.body.email});
             if(user){
                 bcrypt.compare(req.body.password,user.password,(err,result)=>{
                     if(err){
@@ -43,7 +43,7 @@ exports.logIn=async function(req,res,next){
                     }
                     if(result){
                         
-                    res.status(200).json({message:"Logged In",token:generateToken(user.id,user.name,user.ispremiumuser)});
+                    res.status(200).json({message:"Logged In",token:generateToken(user._id,user.name,user.ispremiumuser),name:user.name});
                     
                     }
                     else{

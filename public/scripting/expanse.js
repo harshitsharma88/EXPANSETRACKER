@@ -7,40 +7,66 @@ let itemsperpage = document.querySelector('#perpage').value;
 let firstpage = document.querySelector('#firstpage');
 let lastpage = document.querySelector('#lastpage');
 let navbtns = document.querySelector('#nav-btns');
-let totalpages;
-
-
+let totalpages = 0;
+const sidebar = document.querySelector(".report-prem-btn");
 
 window.onload=getAll;
 
-document.querySelector('#logout').addEventListener('click',()=>{
-    localStorage.removeItem('token');
-    location.replace('http://18.232.150.169:80')
+document.querySelector('#username').textContent = localStorage.getItem('username');
+
+document.querySelector("#logoutbtn").addEventListener('click',(event)=>{
+    localStorage.clear();
+    location.replace("http://54.144.79.95")
+})
+document.querySelector("#opensidebar").addEventListener('click',(event)=>{
+    
+    sidebar.style.width = "13%";
 })
 
+document.querySelector("#closesidebar").addEventListener('click',(event)=>{
+    
+    sidebar.style.width = "0";
+
+})
+
+const leaderbtn= document.querySelector('#leaderboardbtn');
+leaderbtn.addEventListener('click',leaderboardreport);
+
+
+
+
+
 document.querySelector('#firstpage').addEventListener('click',()=>{
+    if(currentpage===1){
+        return;
+    }
     table.innerHTML='<tr><th>Category</th><th>Amount</th><th>Description</th></tr>'
     currentpage=1;
     getAll();
 })
 
 document.querySelector('#lastpage').addEventListener('click',()=>{
+    if(currentpage===totalpages){
+        return;
+    }
     table.innerHTML='<tr><th>Category</th><th>Amount</th><th>Description</th></tr>'
     currentpage=totalpages;
     getAll();
 })
 
 document.querySelector('#previous').addEventListener('click',()=>{
-    table.innerHTML='<tr><th>Category</th><th>Amount</th><th>Description</th></tr>'
-    if(currentpage>0){
+    
+    if(currentpage>1){
+        table.innerHTML='<tr><th>Category</th><th>Amount</th><th>Description</th></tr>'
         currentpage=currentpage-1;
         getAll();
     }
 })
 
 document.querySelector('#next').addEventListener('click',()=>{
-    table.innerHTML='<tr><th>Category</th><th>Amount</th><th>Description</th></tr>'
+    
     if(currentpage<totalpages){
+        table.innerHTML='<tr><th>Category</th><th>Amount</th><th>Description</th></tr>'
         currentpage=currentpage+1;
         getAll();
     }
@@ -60,9 +86,9 @@ async function getAll() {
     try {
 
 
-        const result = await axios.get(`http://18.232.150.169:80/expanse/get-expanse/${itemsperpage}/${currentpage}`,{headers:{Authorazation:token}})
-        
-        
+        const result = await axios.get(`http://54.144.79.95/expanse/get-expanse/${itemsperpage}/${currentpage}`,{headers:{Authorazation:token}})
+        console.log(result.data.premium);
+        console.log(currentpage);
         if(result.data.premium){
             ispremium=true;
            premiumContent();
@@ -86,7 +112,7 @@ async function getAll() {
         
     } catch (error) {
 
-        alert(error)
+        alert(error.response.data)
         
     }
     
@@ -166,6 +192,9 @@ function navButtons(totalpages){
 
 function navbtnListenner(event){
     let shiftpage = parseInt(event.target.textContent);
+    if(shiftpage==currentpage){
+        return;
+    }
     currentpage=shiftpage;
     table.innerHTML='<tr><th>Category</th><th>Amount</th><th>Description</th></tr>'
     getAll();
@@ -184,7 +213,7 @@ async function handleAddExpanse(event){
             description:event.target.description.value,
         }
 
-        const result= await axios.post('http://18.232.150.169:80/expanse/add-expanse',expanseObj,{headers:{Authorazation:token}});
+        const result= await axios.post('http://54.144.79.95/expanse/add-expanse',expanseObj,{headers:{Authorazation:token}});
         event.target.category.value="None"
         event.target.amount.value=""
         event.target.description.value=""
@@ -207,6 +236,7 @@ async function handleAddExpanse(event){
  
 function display(object){
     const tr= document.createElement('tr');
+    tr.className='expenserecordtr'
     tr.innerHTML=`<td>${object.category}</td><td>${object.amount}</td><td>${object.description}</td>`
     const deletebtn= document.createElement('button');
     deletebtn.textContent= "Delete";
@@ -217,7 +247,7 @@ function display(object){
 
     const result=await axios({
     method:'delete',
-    url:'http://18.232.150.169:80/expanse/delete-expanse',
+    url:'http://54.144.79.95/expanse/delete-expanse',
     data:object,
     headers:{Authorazation:token}})
 
@@ -242,16 +272,16 @@ table.appendChild(tr);
 document.querySelector('#rzrbtn').onclick=async (e)=>{
 
     try {
-        const response = await axios.get('http://18.232.150.169:80/purchase/premiummembership',{headers:{Authorazation:token}});
+        const response = await axios.get('http://54.144.79.95/purchase/premiummembership',{headers:{Authorazation:token}});
         const options={
             "key":response.data.key_id,
             "order_id":response.data.order.id,
             "handler":async (rzpresponse)=>{
                 premiumContent();
 
-                const res=await axios.post('http://18.232.150.169:80/purchase/updatepremium',{
-                    orderid:options.order_id,
-                    paymentid:rzpresponse.razorpay_payment_id
+                const res=await axios.post('http://54.144.79.95/purchase/updatepremium',{
+                    orderId:options.order_id,
+                    paymentId:rzpresponse.razorpay_payment_id
 
                 },{headers:{Authorazation:token}});
                 console.log(res.data.message);
@@ -270,7 +300,7 @@ document.querySelector('#rzrbtn').onclick=async (e)=>{
     e.preventDefault();
     rzp.on('payment.failed',async(issue)=>{
         console.log(issue);
-        await axios.post('http://18.232.150.169:80/purchase/failedpremium',{orderid:options.order_id,});
+        await axios.post('http://54.144.79.95/purchase/failedpremium',{orderId:options.order_id,});
     alert('Something Went Wrong')
     })
         
@@ -286,12 +316,11 @@ document.querySelector('#rzrbtn').onclick=async (e)=>{
 
 function premiumContent(){
     try {
-        document.querySelector('#rzrbtn').remove();
-        let html=`You are a Premium User <button id="showleaderboard" type="button">Show LeaderBoard</button>`;
-
-        document.querySelector('#premium').innerHTML=html;
-        const leaderbtn= document.querySelector('#showleaderboard');
-        leaderbtn.addEventListener('click',leaderboardreport)
+        const usernameDiv= document.querySelector('#username');
+        const img = document.createElement('img');
+        img.className = 'premiumImage';
+        img.src="https://upload.wikimedia.org/wikipedia/commons/8/81/Twitter_Verified_Badge_Gold.svg";
+        usernameDiv.appendChild(img);
         
     } catch (error) {
 
@@ -302,7 +331,13 @@ function premiumContent(){
 
 async function leaderboardreport(){
     try {
-        const response = await axios.get('http://18.232.150.169:80/premium/showleaderboard');
+        if(!ispremium){
+            alert("Buy Premium to access this Feature");
+            return;
+
+        }
+        const response = await axios.get('http://54.144.79.95/premium/showleaderboard');
+        sidebar.style.width="0";
         const leaderboard= document.querySelector('#leaderboard');
         let html="<h1>Leaderoard</h1>"
         response.data.forEach(ele=>{
@@ -330,8 +365,8 @@ async function downloadReport(){
     
     try {
         
-        const response = await axios.get('http://18.232.150.169:80/premium/downloadreport',{headers:{Authorazation:token}});
-        
+        const response = await axios.get('http://54.144.79.95/premium/downloadreport',{headers:{Authorazation:token}});
+        console.log(response);
         location.href=response.data.url;
 
         

@@ -1,8 +1,15 @@
-const Sequelize = require('sequelize');
+const mongoose= require('mongoose');
 
-const sequelize = new Sequelize(process.env.DB_NAME,process.env.DB_USER,process.env.DB_PASSWORD,{
-    dialect:'mysql',
-    host:process.env.DB_HOST
-})
+async function dbConn(){
+    try {
+       await mongoose.connect(process.env.MONGO_DB_STRING);
+        console.log("DATABASE CONNECTED SUCCESFULLY");
+        
 
-module.exports=sequelize;
+        
+    } catch (error) {
+        console.log("DATABASE ERROR ---",error);
+        
+    }
+}
+module.exports= dbConn;

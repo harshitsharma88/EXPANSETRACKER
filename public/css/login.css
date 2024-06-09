@@ -1,4 +1,4 @@
-body{
+/* body{
   background-color:azure;
   display: flex;
   justify-content: center;
@@ -44,14 +44,86 @@ button:hover {
 
 .form-container{
   display: flex;
+  width: 100%;
 }
 
 .outer-container{
   display: flex;
-    justify-content: center;
-    align-items: center;
-    background-color: #fff;
-    border-radius: 10px;
-    box-shadow: 10px 10px 10px rgba(0, 0, 0, 0.783);
+  justify-content: center;
+  align-items: center;
+  background-color: #fff;
+  border-radius: 10px;
+  box-shadow: 10px 10px 10px rgba(0, 0, 0, 0.783);
+} */
+
+
+
+
+
+/* --------------GEMINI------------ */
+
+
+body {
+  background-color: azure;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
+#login,
+#signup {
+  background-color: teal; /* Consistent background color */
+  border-radius: 5px;
+  padding: 20px;
+}
+
+#signup{
+  background-color:grey;
+}
+
+form {
+  border-radius: 5px;
+  padding: 20px;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  margin: 20px 2px 10px 5px;
+}
+
+button {
+  padding: 5px 8px;
+  border: none;
+  background-color: #0056b3;
+  border-radius: 20px;
+  color: white;
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: cornflowerblue;
+}
+
+.form-container {
+  display: flex;
+  flex-direction: column; /* Stack forms vertically by default */
+  width: 100%; /* Ensure forms take full width */
+}
+
+.outer-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #fff;
+  border-radius: 10px;
+  box-shadow: 10px 10px 10px rgba(0, 0, 0, 0.783);
+}
+
+/* Optional media query for larger screens */
+@media only screen and (min-width: 768px) {
+  .form-container {
+    flex-direction: row; /* Forms side-by-side on larger screens */
+    justify-content: space-between; /* Distribute forms with some spacing */
+  }
+}

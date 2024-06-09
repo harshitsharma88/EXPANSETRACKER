@@ -1,12 +1,11 @@
-const user=require('../model/usercredentials');
-const sequelize=require('../util/database');
+const Users=require('../model/usercredentials');
+const Expenses = require('../model/expanse');
 const s3AWS=require('../services/awss3');
-const { Json } = require('sequelize/lib/utils');
-const reports=require('../model/reports');
+const Reports=require('../model/reports');
 
 exports.getLeaderBoard=async(req,res,next)=>{
     try {
-        const response=await user.findAll({order:[['totalexpanse','desc']]});
+        const response = await Users.find().sort({totalexpanse:-1});
         res.status(200).json(response);
         
     } catch (error) {
@@ -17,27 +16,26 @@ exports.getLeaderBoard=async(req,res,next)=>{
 }
 
 exports.downloadReport=async(req,res,next)=>{
-    const trn= await sequelize.transaction();
+
     const {user} = req
     try{
-        const entries = await user.getExpanses();
+        const entries = await Expenses.find({userId:user._id});
         const date=JSON.stringify(Date())
         const filename= `${user.name}${user.id}-${date}.txt`;
 
         let data= makeFile(entries);
         
         const {Location}= await s3AWS.uploadtoAWS(filename,data);
-        await reports.create({url:Location,userId:user.id},{transaction:trn});
-        trn.commit();
+        await Reports.create({url:Location,userId:user._id});
+     
         
         return res.status(200).json({url:Location})
-        return res.status(200).json({data:data})
+        // return res.status(200).json({data:data})
 
 
     }
     catch(error){
         console.log('/////////////////////////////////////////////////////////////////\ncontroller error',error);
-        await trn.rollback();
         res.status(500).json("Error Occurred");
     }
 }
@@ -45,8 +43,7 @@ exports.downloadReport=async(req,res,next)=>{
 function makeFile(entries){
     let data='';
     entries.forEach((element,index)=> {
-        const updated= JSON.stringify(element.updatedAt).replace('T','  ')
-         data+=`${index+1} ${element.category} ${element.description} ${element.amount} ${updated}\n`;   
+         data+=`${index+1} ${element.category} ${element.description} ${element.amount} \n`;   
         });
 
     return data;

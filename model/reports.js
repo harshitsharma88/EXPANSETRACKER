@@ -1,11 +1,29 @@
-const {DataTypes}=require('sequelize');
-const sequelize= require('../util/database');
+const mongoose = require('mongoose');
+const Schema = mongoose.Schema;
 
-const Reports= sequelize.define('reports',{
+const Reports = new Schema({
     url:{
-        type:DataTypes.STRING,
-        allowNull:false
+        type:String,
+
+    },
+    userId:{
+        type:Schema.Types.ObjectId,
+        ref:'user'
     }
 })
 
-module.exports=Reports;
+module.exports = mongoose.model('report',Reports);
+
+
+
+// const {DataTypes}=require('sequelize');
+// const sequelize= require('../util/database');
+
+// const Reports= sequelize.define('reports',{
+//     url:{
+//         type:DataTypes.STRING,
+//         allowNull:false
+//     }
+// })
+
+// module.exports=Reports;

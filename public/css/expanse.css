@@ -3,77 +3,138 @@ body{
   }
 
   form {
-    border-radius: 5px;
-    background-color:rgb(52, 159, 159);
-    padding: 20px;
-    margin-bottom: 10px;;
+    border-radius: 2rem;
+    background-color:rgb(52, 140, 140);
+    padding: 1rem;
+    margin-bottom: 2rem;
+    margin-top: 1rem;
   }
 
- #btn {
+  #perpagediv{
+    float: right;
+  }
+
+  #navbar{
+    width: 100%;
+    background-color: #111;
+    display: flex;
+    flex-direction: row;
+    padding: 0.2rem;
+
+  }
+
+  .report-prem-btn{
+    display:flex;
+    flex-direction:column; 
+    width: 0;
+    height: 100%;
+    align-items: center;
+    padding: 0%;
+    justify-content: center;
+    align-items: center;
+    position: fixed;
+    overflow-x: hidden;
+    transition: 0.5s;
+    background-color: #111;
+    
+  }
+
+  #opensidebar{
+    background:none;
+    border: none;
+    color: aliceblue;
+    /* height: 5rem;
+    width: 3rem; */
+    margin-right: 3 rem;
+    float: inline-start;
+    padding: 0%;
+  }
+
+  #username{
+    color: aliceblue;
+    margin-left: 3rem;
+    margin-top: 0.5rem;
+    display: flex;
+    flex-direction: row;
+  }
+
+  .premiumImage{
+    max-height: 1rem;
+    max-width: 1rem;
+  }
+
+  .entries{
+    border-radius: 2rem;
+    border: black  1px solid;
+  }
+
+  #closesidebar{
+    background:none;
+    border: none;
+    color: aliceblue;
+    height: 5rem;
+    width: 3rem;
+    margin-bottom: 2rem;
+    align-self: flex-start;
+  }
+
+  .sidebardiv{
+    width: 100%;
+    border-bottom: wheat  1px solid ;
+    margin-bottom: 1rem;
+  }
+
+  .sidebarbtn{
+    background-color: #111;
+    border: none;
+    width: 100%;
+    color: aliceblue;
+    cursor:pointer;
+    align-items: start;
+  }
+
+  .sidebarbtn:hover{
+    transform: scale(1.13);
+    transition: 0.8ms;
+  }
+
+  #logout{
+    background-color: #111;
+    border: none;
+    width: 100%;
+    color: aliceblue;
+    margin-top:auto ;
+    margin-bottom: 2rem;
+  }
+
+  #logoutbtn{
+    cursor:pointer;
+    border: none;
+    width: 100%;
+    color: aliceblue;
+    background-color: #111;
+  }
+  #logoutbtn:hover{
+    transform: scale(0.93);
+    transition: 0.9ms;
+  }
+
+
+
+  #btn {
     padding: 5px 8px;
     border: none;
-    background-color: #0056b3;
-    border-radius: 20px  ;
+    background-color: rgb(201, 87, 6);
+    border-radius: 0.2rem  ;
     color: white;
     cursor: pointer;
   }
   
   #btn:hover {
-    background-color: cornflowerblue;
-    box-shadow: 0 4px 8px rgb(1, 255, 255);
-    
+    border-radius: 3rem;
+    transition: 0.7s;
   }
 
-  #logout{
-    padding: 5px 8px;
-    border: none;
-    background-color:darkslategrey;
-    border-radius: 20px  ;
-    color: white;
-    cursor: pointer;
-    float:right
-
-  }
-
-  #logout:hover {
-    background-color:black;
-    box-shadow: 0 4px 8px rgb(1, 255, 255);
-    padding: 3px 6px;
-  }
-
-  .report-prem-btn{
-    display: flex;
-    flex-direction:row; 
-    align-items: center;
-    padding: 0%;
-    justify-content: center;
-    align-items: center;
-    gap:5px;
-  }
-
-  #rzrbtn{
-    background-color:sandybrown;
-    border: none;
-    border-radius: 5px;
-    padding:6px 6px;
-  }
-
-  #rzrbtn:hover{
-    background-color: gold;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.783);
-  }
-
-  #reportbtn{
-    background-color:springgreen;
-    border: none;
-    border-radius: 5px;
-    padding:6px 6px;
-  }
-
-  #reportbtn:hover{
-    background-color:greenyellow;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.783);
-  }
 
   .delexpnse{
     padding: 5px 8px;
@@ -110,29 +171,39 @@ body{
   #expanse-table{
     border:1px solid sandybrown;
     padding: 0%;
-    margin-bottom: 15px;
+    margin: 0.9rem;
+    
   }
 
-  table {
+  #expanse-records{
     width: 100%;
     border-collapse: collapse;
-    margin: 20px 10px;
-    font-size: 18px;
     text-align: left;
-    border-bottom: 1px solid black;
-    
-}
-tr{
+    font-size: medium;
+  }
+
+  .recordsHeading{
+    background-color:gray;
+  }
+
+.expenserecordtr{
   justify-content: center;
   border-bottom: 1px solid black;
+  background-color: rgba(245, 245, 245, 0.938);
 }
+
 table th, table td {
   padding: 8px 8px; 
 }
 
-#page-btn{display: flex;
+#page-btn{
+  display: flex;
     justify-content: center;
-    align-items: center;}
+    align-items: center;
+    margin-top: 0.5rem;
+    margin-bottom: 0.5rem;
+    gap: 0.2rem;
+  }
 
 #page-btn{
       display: flex;
@@ -144,6 +215,10 @@ table th, table td {
 .navmove{
   background-color:cadetblue;
   border: none;
+  border-radius: 0.5rem;
+  padding-left: 0.5rem;
+  padding-right: 0.5rem;
+  text-align: center;
 }
 
 .navmove:hover{
@@ -151,14 +226,27 @@ table th, table td {
 }
 
 .jumppage{
-  background-color:seagreen;
+  background-color:cornflowerblue;
   border: none;
+  border-radius: 0.2rem;
+  padding-left: 0.9rem;
+  padding-right: 0.9rem;
+  text-align: center;
 
 }
 
 .skip{
+  background-color:whitesmoke;
+  border: 1px solid black;
+  border-radius: 0.8rem;
+  padding-left: 0.2rem;
+  padding-right: 0.2rem;
+  text-align: center;
+}
+
+.skip:hover{
   background-color:cornflowerblue;
-  border: none;
+
 }
 
 .skip:hover{
@@ -166,18 +254,24 @@ table th, table td {
 }
 
 #nav-btns{
-  gap: 2px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  gap: 0.3rem;
 }
 
 #leaderboard{
-  border: 1px solid gold;
-  width: 40%;
+  width: 50%;
+  align-self: center;
+  margin-left: 6rem;
+  margin-right: 6rem;
 }
 
 .leadli{
-  border-bottom:1px solid black ;
+  border-bottom: 0.009rem solid black ;
   margin: 5px;
-  background-color:rgb(227, 218, 206);
+  background-color:rgba(171, 160, 147, 0.422);
+  padding: 0.9rem;
 }
 
 .leadname{

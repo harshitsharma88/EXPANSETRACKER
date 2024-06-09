@@ -1,5 +1,5 @@
-const Order= require('../model/orders');
-const User= require('../model/usercredentials');
+const Orders= require('../model/orders');
+const Users= require('../model/usercredentials');
 const sequelize=require('../util/database');
 const Razorpay= require('razorpay');
 const jwt=require('jsonwebtoken')
@@ -9,10 +9,7 @@ exports.failedpremium=async(req,res,next)=>{
 
     try {
 
-        const order=await Order.findOne({where:{orderid:req.body.orderid}});
-        console.log(order);
-
-        await order.update({status:"FAILED"});
+        await Orders.updateOne({orderId:req.body.orderId},{status:"FAILED"});
 
         res.status(202).json({message:"Payment failed"});
         
@@ -27,33 +24,25 @@ const generateToken=(id,name,premium)=>{
 }
 
 exports.updatepremium=async(req,res,next)=>{
-    const trn=await sequelize.transaction();
-    try {
-        const order= await Order.findOne({where:{orderid:req.body.orderid }});
-        
 
-        const updateOrder= order.update(
+    try {        
+
+        const updateOrder= Orders.updateOne({orderId:req.body.orderId},
             {
             status:"SUCCESSFULL",
-            paymentid:req.body.paymentid},
-        {transaction:trn});
+            paymentId:req.body.paymentId},
+        );
 
-        const userupdate= req.user.update({
-            ispremiumuser:true
-        },{
-            transaction:trn
-        })
+        const userUpdate= Users.updateOne({_id:req.user._id},{ispremiumuser:true})
 
-        await Promise.all([updateOrder,userupdate]);
+        await Promise.all([updateOrder,userUpdate]);
 
-        await trn.commit();
-        res.status(202).json({message:"Transaction Successfull",token:generateToken(req.user.id,req.user.name,true)});
+        res.status(202).json({message:"Transaction Successfull",token:generateToken(req.user._id,req.user.name,true)});
      
 
         
     } catch (error) {
         console.log(error);
-        trn.rollback();
         res.status(403).json({error:"Something went Wrong"})
         
     }
@@ -62,19 +51,21 @@ exports.updatepremium=async(req,res,next)=>{
 
 
 exports.purchasepremium= async (req,res,next)=>{
+    const {user}=req;
     try {
-
         let rzp = new Razorpay({
             key_id:process.env.RZ_KEY_ID,
             key_secret:process.env.RZ_KEY_SECRET
         });
         const amnt= 3000000
+
+        console.log(rzp);
         
         rzp.orders.create({amount:amnt,currency:"INR"},(err,order)=>{
             if(err){
                 throw new Error(JSON.stringify(err));
             }
-            req.user.createOrder({status:'PENDING',orderid:order.id})
+            Orders.create({userId:user._id,status:'PENDING',orderId:order.id})
             .then(()=>{
                 return res.status(201).json({order,key_id:rzp.key_id})
             })
